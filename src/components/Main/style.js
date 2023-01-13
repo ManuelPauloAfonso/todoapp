@@ -31,7 +31,9 @@ span{
     display: flex;
     flex-direction: column;
     
-    
+    .active{
+         border: 1px solid red;
+     }
     input{
         width: 32.5rem;
         height: 3.5rem;
@@ -42,9 +44,9 @@ span{
         font-weight: 400;
         font-size: 16px;
         line-height: 150%;
+        color: white;
+        
 
-
-        color: rgba(255, 255, 255, 0.25);
     
     }
     button{

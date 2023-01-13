@@ -13,6 +13,7 @@ export default function Main() {
 
     const [task, setTask] = useState("")
     const [itemsList, setItemsList] = useState([])
+    const [error, setError] = useState(false)
 
 
     function handleChangeInput(e) {
@@ -23,18 +24,30 @@ export default function Main() {
     function handleaddInput(e) {
         e.preventDefault();
         const newItems =  [...itemsList, task];
+        setTask("")
 
+        if(!task){
+            setError(true)
+            return 
+        }
         setItemsList(newItems)
     }
+    function removeTask(e, item){
+        e.preventDefault()
+        const filter = itemsList.filter(items => 
+            items  !== item
+        )
+
+        setItemsList(filter)
+    }
     
-    console.log(itemsList)
     return(
         <Container>
             <div className="line1">
                 <div className="lok">
                     <span> <a href=""> <img src={Social1} alt="" /></a> Criar nova tarefa </span>
-                    <form onSubmit={handleaddInput} className="columm bf">
-                        <input  type="text" placeholder="Nome da tarefa" onChange={handleChangeInput} />
+                    <form onSubmit={handleaddInput} className="columm bf"> 
+                            <input className={error ? 'active' : ''}  type="text" placeholder="Nome da tarefa" value={task} onChange={handleChangeInput} />
                         <button >
                             <img src={Social4} alt="" />
                         </button>
@@ -55,7 +68,7 @@ export default function Main() {
                                             
                                         
                                        itemsList.map((item, index) => (  
-                                          <li key={index}> <pre>{item}</pre>  <button><img src={Social3} alt="" /></button> </li>
+                                          <li key={index}> <pre>{item}</pre>  <button onClick={(e) => removeTask(e, item)}><img src={Social3} alt="" /></button> </li>
                                        ))
                                    } 
                           </ul>
